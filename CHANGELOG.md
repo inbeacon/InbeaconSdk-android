@@ -1,3 +1,7 @@
+#### 2.1.8 (05-Aug-2017)
+- Dependencies to latest versions
+ 
+
 #### 2.1.7 (26-Jun-2017)
 - some edge cases fixed that could generate a crash
  
