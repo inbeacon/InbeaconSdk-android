@@ -21,7 +21,7 @@ allprojects {
         }
     }
     configurations.all {
-        // force using a specific version of a dependency, even if the inBeacon SDK wants another version... 
+        // force using a specific version of a dependency, even if the inBeacon SDK wants another version...
         // see https://stackoverflow.com/questions/31402447/dont-use-later-library-version-from-transitive-dependency-in-gradle
         resolutionStrategy.force 'com.squareup.okhttp3:okhttp:3.6.0'
     }

@@ -32,5 +32,8 @@ public class MainApplication extends Application {
         // if you see an error in the log:  Response code=401 body={"error":true,"message":"","code":401}
         // you supplied an invalid clientID and/or secretID
 
+        // You might use seperate client-id/secrect-id pairs for testing and production.
+        // Ask inbeacon support for a test client/secret pair.
+
     }
 }

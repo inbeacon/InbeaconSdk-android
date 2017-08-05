@@ -8,9 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,13 +16,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 
 import com.inbeacon.sdk.Base.Constants;
 import com.inbeacon.sdk.InbeaconManager;
 import com.inbeacon.sdk.InbeaconManagerInterface;
 import com.inbeacon.sdk.User.UserPropertyService;
 
+/**
+ *      Example code only! For your app you don't need to include any of this
+ *      This example shows more advanced usages of the inBeacon SDK, which are not needed in a basic implementation
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     InbeaconManagerInterface inbeaconManager;
@@ -77,18 +78,22 @@ public class MainActivity extends AppCompatActivity {
 
         // make sure we get SDK events in our messagereceiver
         IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_USERINFO);
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_PROXIMITY);
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GEOFENCE);
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_LOCATION);
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_APPEVENT);
-        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GPSFIX);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, myIntentFilter);
+        // This is probably the event you want to monitor
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_APPEVENT);     // app event coming from campaign designer
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_USERINFO);     // user information is changed
 
+        // the following events are only used in special circumstances.
+        // Stay away from these events in normal use of the SDK.
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_PROXIMITY);    // A proximity towards a beacon changed
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GEOFENCE);     // A geofence range has been crossed
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_LOCATION);     // A location (beacon group) has been entered
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GPSFIX);       // A GPS lat/long position has been obtained
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, myIntentFilter);
 
         // Force a server sync on the refresh-button.
         // This will get new information from the backend, including changed userproperties, new regions to monitor etc.
-        // normally this happens automatically
+        // normally this happens automatically - you don't need to call refreshForced() in your app.
         Button refreshForceBtn = (Button) findViewById(R.id.id_refresh_force);
         refreshForceBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -97,7 +102,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // example userinterface for getting and setting a property.
+        //======================================================================
+        // USER PROPERTIES EXAMPLE CODE
+        // example userinterface for getting and setting properties and tags
+        //======================================================================
         Button saveBtn = (Button) findViewById(R.id.save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -145,6 +153,5 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
 
 }
