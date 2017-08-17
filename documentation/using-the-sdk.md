@@ -297,7 +297,8 @@ Fired when device enters or leaves a beacon proximity. Normally you don't need t
 
 intent Extras: 
 
-* EVENT\_PROXIMITY\_EXTRADATA\_BEACON - beacon id
+* EVENT\_PROXIMITY\_EXTRADATA\_BEACON - json object containing beacon details  
+  ```{"accuracy": 10.233, "major": 1200, "minor": 101, "proximity": "FAR", "rssi": -88, "txpower": -63, "uuid": "92517B9E-7DB2-4275-913E-AA20DA8A15CC"}```
 * EVENT\_PROXIMITY\_EXTRADATA\_PROXIMITY - near/far/immediate
 * EVENT\_PROXIMITY\_EXTRADATA\_INOUT - "i" or "o" - enter or exit
 
