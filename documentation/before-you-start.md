@@ -4,7 +4,7 @@ Before starting, lets take a look at some important considerations
 
 ## Permissions 
 
-For the SDK to work, the app needs the following (extra) permissions:
+For the SDK to work, the SDK includes the following (extra) permissions:
 
 * `BLUETOOTH`
 * `BLUETOOTH_ADMIN`
@@ -30,19 +30,29 @@ When the app is run, permission for `COARSE_LOCATION` (or `FINE_LOCATION`) needs
 ![image alt text](image_3.png)
 
 #### Older android versions
-* Android versions 5 (lollipop) and lower 
-* **OR** Apps targeted at API versions 22 and lower 
+* Android versions 5 (lollipop) and lower **OR** Apps targeted at API versions 22 and lower
+
+>Even on android 6, older apps targeted for API versions 22 and lower will have the same behaviour, as these are grandfathered into the new adroid version.
 	
-Android versions 5 and lower ask for all permissions during install. 
-	
-Also, on android 6, older apps targeted for API versions 22 and lower will have the same behaviour, as these are grandfathered into the new adroid version.
-	
-##### Installation
-	
-On installation, the app asks for the extra permission "Bluetooth" 	
-##### App update
-	
-If the app is updated and did not yet have permission for one of the bluetooth values, the app is **NOT** automatically updated because of the extra permission needed. Updating leads to the following question
+Android versions 5 and lower ask for **all** permissions during install. 
+
+This can lead to auto-update problems for your app if you did not include BLUETOOTH permissions before. If the app is updated and did not yet have permission for one of the bluetooth values, the app is **NOT** automatically updated because of the extra permission needed. 
+
+
+To avoid the auto-update problem, you might want to ask for bluetooth permissions only on Android 6 and higher. You can do this by including the following in your manifest:
+
+```
+<uses-permission android:name="android.permission.BLUETOOTH" tools:node="remove"  />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" tools:node="remove"/>
+<uses-permission-sdk-23 android:name="android.permission.BLUETOOTH"/>
+<uses-permission-sdk-23 android:name="android.permission.BLUETOOTH_ADMIN"/>
+```
+
+This overrides and removes the original bluetooth permission (using tools:node="remove") and replaces it with a uses-permission-sdk-23 permission, which only targets android 6 and higher. 
+
+>If you override the uses-permission, the inBeacon SDK only supports beacon functionality for android 6 and up.
+
+
 
 
 
