@@ -1,3 +1,7 @@
+#### 2.1.9-mv1 (28-Aug-2017)
+- special build with different dependencies
+
+
 #### 2.2.0 (28-Aug-2017)
 - Android 8.0 / SDK 26 version 
  
