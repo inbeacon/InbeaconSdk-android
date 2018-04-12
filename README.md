@@ -6,12 +6,11 @@ Read the [full documentation](documentation/README.md)
 Minimal implementation of the inBeacon SDK in an Android Studio project
 
 ### Get the SDK from JCenter (recommended)
-Add JCenter and the inbeacon repository to your build file's list of repositories:
+Add JCenter to your build file's list of repositories:
 
 ```groovy
     repositories {
         jcenter()
-        maven { url "https://dl.bintray.com/inbeacon/maven" }
     }
 ```
 

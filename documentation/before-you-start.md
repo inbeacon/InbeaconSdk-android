@@ -6,10 +6,12 @@ Before starting, lets take a look at some important considerations
 
 For the SDK to work, the SDK includes the following (extra) permissions:
 
+* `INTERNET`
 * `BLUETOOTH`
 * `BLUETOOTH_ADMIN`
 * `RECEIVE_BOOT_COMPLETED`
 * `ACCESS_FINE_LOCATION`  (api 23 / android 6 only - for beacons and geofences)
+* `WAKE_LOCK` (api 27 / android 8 for background)
 
 How these permissions impact installation and use of the app differs per android version and per targeted API of the app.
 
@@ -64,6 +66,8 @@ Special care is taken to allow beacon scanning to continue in the background.
 
 * When the phone is locked (screen off) the SDK works in background mode
 
+* For Android 8 (Oreo) background scanning works differently: The first beacon or geofence that is encountered is scanned immediately. However from that moment on the app will only scan for subsequent beacons every 15 minutes.
+
 * When the app is swiped-out from the task menu, an alert is set to wake the app again after 5 minutes. In this case the app is started in background mode only, without activity so it is not shown on the task menu again
 
 * Unplugging or plugging in the USB charger has the same effect as the 5 minutes alert. It will restart the app in background mode immdiately after it is swiped-out from the task menu
@@ -76,15 +80,15 @@ However because Doze-mode is only activated for devices that are not moving (GPS
 
 ## Battery life
 
-The inbeacon SDK uses sleep-mode whenever there are no beacons with your ID around. This means that we can limit extra battery usage during normal operation. Bluetooth scanning takes place only for a few seconds every minute. On average we see a decrease of battery life of aboutf 1-2% for the device. 
+The inbeacon SDK uses sleep-mode whenever there are no beacons with your ID around. This means that we can limit extra battery usage during normal operation. Bluetooth scanning takes place only for a few seconds every minute. On average we see a decrease of battery life of aboutf 1-2% for the device. For Android 8 (Oreo) battery life decrease is even less, due to a new way to detect beacons.
 
-When beacons with your ID are within range (approx 30 meters),  bluetooth scanning is done continuously, and battery use increases as well. Of course, only a few people will be within the ranges of your beacons, and also for a short time. 
+When beacons with your ID are within range (approx 30 meters),  bluetooth scanning is done continuously, and battery use increases as well. Of course, only a few people will be within the ranges of your beacons, and also for a short time. For Android 8, continous scanning is only done once every 15 minutes.
 
 >The inbeacon SDK only wakes up for **_your beacons_** (beacon UUID’s defined in the region table of your account)  Other beacons have no influence on the inbeacon SDK.
 
 ## Dex method footprint
 
-Because of the 65K method limit for android applications, large applications that add a lot of SDK’s might become too large containing more than 65K methods
+Because of the 65K method limit for android applications, large applications that add a lot of SDK’s might become too large containing more than 65K methods without use of MultiDex.
 
 The number of methods used by the inBeaconSDK is 793 methods (version 1.3.4)
 

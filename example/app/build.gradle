@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.inbeacon.inbeaconexample"
         minSdkVersion 18
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,10 +24,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:appcompat-v7:27.1.1'
 
-    // example: how to cope with version conflicts
+    // EXAMPLE EXAMPLE EXAMPLE EXAMPLE
+    // how to cope with version conflicts
     // run  ./gradlew app:dependencies to see which versions are used
+    // main build.gradle forces use of 3.6.0 (example only!)
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
 
     // always use latest version of the inbeacon SDK. You might want to pin to a specific version.

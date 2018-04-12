@@ -27,13 +27,13 @@ You can use a dynamic version (2.+) to get the latest 2.x version of the SDK (re
 The inbeacon SDK has dependencies on the following libraries and versions:
 
 ```
-   compile 'com.android.support:support-v4:25.4.0'
-   compile 'org.altbeacon:android-beacon-library:2.11'      
-   compile 'com.google.code.gson:gson:2.8.1'
-   compile 'com.squareup.okhttp3:okhttp:3.8.1'
-   compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-   compile 'com.google.android.gms:play-services-location:11.0.4'
-   compile 'com.google.dagger:dagger:2.11'
+   compile 'com.android.support:support-v4:27.1.1'
+   compile 'org.altbeacon:android-beacon-library:2.13.1'      
+   compile 'com.google.code.gson:gson:2.8.2'
+   compile 'com.squareup.okhttp3:okhttp:3.10.0'
+   compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+   compile 'com.google.android.gms:play-services-location:11.8.0'
+   compile 'com.google.dagger:dagger:2.15'
 
 ```
 
@@ -61,7 +61,7 @@ Run the gradle task ```gradle app:dependencies``` to get information about all v
      +--- com.android.support:support-v4:25.4.0 (*)
      +--- org.altbeacon:android-beacon-library:2.11
      +--- com.google.code.gson:gson:2.8.1
-     +--- com.squareup.okhttp3:okhttp:3.8.1 -> 3.6.0 (*)
+     +--- com.squareup.okhttp3:okhttp:3.10.0 -> 3.6.0 (*)
 ```
 
 > See the provided example app for more information.
@@ -83,12 +83,12 @@ repositories {
    }
 }
 
-compile 'com.android.support:support-v4:25.4.0'         
-compile 'org.altbeacon:android-beacon-library:2.11'  
-compile 'com.google.code.gson:gson:2.8.1'
-compile 'com.squareup.okhttp3:okhttp:3.8.1'
-compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-compile 'com.google.android.gms:play-services-location:11.0.4'
+compile 'com.android.support:support-v4:27.1.1'         
+compile 'org.altbeacon:android-beacon-library:2.13.1'  
+compile 'com.google.code.gson:gson:2.8.2'
+compile 'com.squareup.okhttp3:okhttp:3.10.0'
+compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+compile 'com.google.android.gms:play-services-location:11.8.0'
 compile(name:'android.sdk-release', ext:'aar')
 ```
 
