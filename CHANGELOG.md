@@ -1,3 +1,7 @@
+#### 2.4.1 (07-May-2018)
+- added get and set PPID
+ 
+
 #### 2.4.0 (12-Apr-2018)
 - Android 8 (Oreo) fix for detecting beacons in the background. 
 
