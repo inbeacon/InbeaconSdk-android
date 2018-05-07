@@ -77,6 +77,7 @@ returns the current log level
     long getLogLevel();
 
 
+
 	
 ### verifyCapabilities
 Checks for correct hardware and SDK version.
@@ -166,6 +167,24 @@ available methods
     void setTag(String tag);
     void resetTag(String tag);
 ```
+
+### PPID
+An alternative for the IDFA is to roll your own Publisher Provided ID. If you use Doubleclick For Publishers (DFP), a PPID might be a better option than using an IDFA. A PPID is a ID that is attached to the App on a Device that can be used for retargeting. 
+
+In addition to your own PPID's, the SDK will generate a unique ID, based on the device and app bundle. This can function as a PPID if you do not want to create your own. This PPID will survive app re-installs. The PPID provided by the SDK will be a hashed (base64) value.
+
+> See [Google DFP documentation on PPID's](https://support.google.com/dfp_premium/answer/2880055?hl=en)
+
+The PPID is available as a read/write property of the SDK instance:
+
+```java
+String ppid = InbeaconManager.getInstance().getPPID();
+InbeaconManager.getInstance().setPPID("your own PPID");
+
+```
+
+
+
 
 ## Sending custom events or touchpoints
 

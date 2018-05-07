@@ -29,6 +29,8 @@ public class MainApplication extends Application {
         InbeaconManager.getInstance().setCredentials("your-client-id", "your-secret-id");
         InbeaconManager.getInstance().start();  // and we're off
 
+        // OPTIONAL set your own PPID (Publisher provided ID) for retargeting
+        InbeaconManager.getInstance().setPPID("your publisher provided ID");
         // if you see an error in the log:  Response code=401 body={"error":true,"message":"","code":401}
         // you supplied an invalid clientID and/or secretID
 
