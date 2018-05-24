@@ -33,7 +33,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
 
     // always use latest version of the inbeacon SDK. You might want to pin to a specific version.
-    compile('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
+    compile('com.inbeacon:android.sdk:2.4.1@aar'){ transitive = true }
     testCompile 'junit:junit:4.12'
 }
 
