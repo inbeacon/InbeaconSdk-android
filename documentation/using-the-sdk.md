@@ -183,6 +183,14 @@ InbeaconManager.getInstance().setPPID("your own PPID");
 
 ```
 
+Example integration with Google DFP
+
+```java
+PublisherAdRequest adRequest = new PublisherAdRequest.Builder()
+    .setPublisherProvidedId(InbeaconManager.getInstance().getPPID())
+    .build();
+```    
+
 
 
 

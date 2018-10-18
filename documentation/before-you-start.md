@@ -68,11 +68,11 @@ Special care is taken to allow beacon scanning to continue in the background.
 
 * For Android 8 (Oreo) background scanning works differently: The first beacon or geofence that is encountered is scanned immediately. However from that moment on the app will only scan for subsequent beacons every 15 minutes.
 
-* When the app is swiped-out from the task menu, an alert is set to wake the app again after 5 minutes. In this case the app is started in background mode only, without activity so it is not shown on the task menu again
+* When the app is swiped-out from the task menu, an alert is set to wake the app again after max. 25 minutes. In this case the app is started in background mode only, without activity so it is not shown on the task menu again
 
-* Unplugging or plugging in the USB charger has the same effect as the 5 minutes alert. It will restart the app in background mode immdiately after it is swiped-out from the task menu
+* Unplugging or plugging in the USB charger has the same effect as the 25 minutes alert. It will restart the app in background mode immdiately after it is swiped-out from the task menu
 
-* When the app is force-stopped the SDK becomes inactive. The 5 minute resume or the usb plugin trigger are disabled. Scanning will restart only after a fresh app restart.
+* When the app is force-stopped the SDK becomes inactive. The 25 minute resume or the usb plugin trigger are disabled. Scanning will restart only after a fresh app restart.
 
 * DOZE mode. Android 6 Marshmellow introduces doze mode where the device cycles through `IDLE` and `IDLE_MAINTENANCE` mode when the device is inactive and on battery. In IDLE mode, internet connection is off, so apps have to wait for an `IDLE_MAINTENANCE` window in order to connect to backends. Doze mode does not have any impact on beacon scanning, but without internet connection devices will not be able to process on-line trigger events.
 
