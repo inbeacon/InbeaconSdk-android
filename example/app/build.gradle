@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.inbeacon.inbeaconexample"
         minSdkVersion 18
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -29,11 +29,15 @@ dependencies {
     // EXAMPLE EXAMPLE EXAMPLE EXAMPLE
     // how to cope with version conflicts
     // run  ./gradlew app:dependencies to see which versions are used
-    // main build.gradle forces use of 3.6.0 (example only!)
+    // main build.gradle forces use of 3.6.0 using a resolutionStrategy (example only!)
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
 
-    // always use latest version of the inbeacon SDK. You might want to pin to a specific version.
-    compile('com.inbeacon:android.sdk:2.4.1@aar'){ transitive = true }
+
+    // always use latest version of the inbeacon SDK.
+    compile('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
+    // You might want to pin to a specific version.
+    // compile('com.inbeacon:android.sdk:2.5.0@aar'){ transitive = true }
+
     testCompile 'junit:junit:4.12'
 }
 

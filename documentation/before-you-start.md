@@ -2,20 +2,30 @@
 
 Before starting, lets take a look at some important considerations
 
-## Permissions 
 
-For the SDK to work, the SDK includes the following (extra) permissions:
 
-* `INTERNET`
-* `BLUETOOTH`
-* `BLUETOOTH_ADMIN`
-* `RECEIVE_BOOT_COMPLETED`
-* `ACCESS_FINE_LOCATION`  (api 23 / android 6 only - for beacons and geofences)
-* `WAKE_LOCK` (api 27 / android 8 for background)
+### Android 8 and up
 
-How these permissions impact installation and use of the app differs per android version and per targeted API of the app.
+Special care is taken to allow beacon scanning to continue in the background. However Android Oreo (8.0) completely changed the way an app behaves in the background.
 
-#### Android 6 and higher
+There are several situations to consider when the app is not in the foreground:
+
+1.  App has been in the foreground but is not visible at the moment however it is running and visible in the *task manager*
+	* The first beacon or geofence that is encountered is recognized immediately. However from that moment on the app will only process subsequent beacon events every 10..25 minutes. 
+	* Because of this, battery impact of beacon scanning in the background is very low
+	* It does not matter whether the device is locked, display off or unlocked
+3. App is swiped-out from the task manager
+	* The app will become active in about 10-25 minutes again, but stays invisible in the task manager because it did not show an activity (yet)
+	* From that moment on the app behaves like situation 1) again
+2. The device is restarted (booted) and the app has not run yet
+	* The app will become active almost immediately, and starts behaving like situation 1)
+	* This also happens when the device starts charging.
+
+#####Foreground-scanning
+
+If the 10..25 minutes waiting time is unacceptable, you could consider putting the SDK in **Foreground-scanning mode**. However, an icon is always shown and battery usage is higher. But with foreground-scanning mode, the app behaves just like it did with Android 7. 
+
+### Android 6 and up
 * Android versions 6 (marshmallow) and up
 * **AND** with apps targeted at API versions 23 onwards
 
@@ -27,7 +37,7 @@ How these permissions impact installation and use of the app differs per android
 
 ![image alt text](image_2.png)
 
-When the app is run, permission for `COARSE_LOCATION` (or `FINE_LOCATION`) needs to be requested in order to detect beacons:
+When the app is run, permission for `COARSE_LOCATION` (or `FINE_LOCATION`) needs to be requested in order to detect beacons and geofences.
 
 ![image alt text](image_3.png)
 
@@ -58,15 +68,11 @@ This overrides and removes the original bluetooth permission (using tools:node="
 
 
 
-## App in the background and locked (screen off) devices
-
-Special care is taken to allow beacon scanning to continue in the background. 
+### App in the background before Android 8
 
 * When the app activity is closed (back-button) the SDK goes into background mode. In this mode, beacon scanning is slower to preserve battery, but still every beacon is detected within 10 seconds
 
 * When the phone is locked (screen off) the SDK works in background mode
-
-* For Android 8 (Oreo) background scanning works differently: The first beacon or geofence that is encountered is scanned immediately. However from that moment on the app will only scan for subsequent beacons every 15 minutes.
 
 * When the app is swiped-out from the task menu, an alert is set to wake the app again after max. 25 minutes. In this case the app is started in background mode only, without activity so it is not shown on the task menu again
 
@@ -77,6 +83,21 @@ Special care is taken to allow beacon scanning to continue in the background.
 * DOZE mode. Android 6 Marshmellow introduces doze mode where the device cycles through `IDLE` and `IDLE_MAINTENANCE` mode when the device is inactive and on battery. In IDLE mode, internet connection is off, so apps have to wait for an `IDLE_MAINTENANCE` window in order to connect to backends. Doze mode does not have any impact on beacon scanning, but without internet connection devices will not be able to process on-line trigger events.
 
 However because Doze-mode is only activated for devices that are not moving (GPS and accelerometer) (for instance lying on a table) we expect doze mode not to have any practical impact on the SDK as people will probably will be on the move during interactions.  
+
+## Permissions 
+
+For the SDK to work, the SDK includes the following (extra) permissions:
+
+* `INTERNET`
+* `BLUETOOTH`
+* `BLUETOOTH_ADMIN`
+* `RECEIVE_BOOT_COMPLETED`
+* `ACCESS_FINE_LOCATION`  (api 23 / android 6 only - for beacons and geofences)
+* `WAKE_LOCK` (api 27 / android 8 for background)
+
+How these permissions impact installation and use of the app differs per android version and per targeted API of the app.
+
+These extra permissions are (normally) automatically added when adding the SDK.
 
 ## Battery life
 

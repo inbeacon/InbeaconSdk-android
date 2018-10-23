@@ -77,6 +77,26 @@ returns the current log level
     long getLogLevel();
 
 
+### setForegroundservice
+On Android 8, in order to keep the app continously scanning while in the background the foregroundservice is neccesary. This will show an icon on the notificationbar but allows the app to keep scanning for beacons.
+ 
+```java
+void setForegroundservice(Boolean on, String description);
+
+```
+This needs to be called BEFORE starting the InbeaconManager.
+
+>Example: use foreground mode and show "scanning" in the notification window.
+>
+```java
+...
+InbeaconManager.getInstance().setContext(this);
+InbeaconManager.getInstance().setForegroundservice(true,"scanning!");
+InbeaconManager.getInstance().setCredentials("client-id", "client-secret");   
+InbeaconManager.getInstance().start();  // and we're off
+```
+
+
 
 	
 ### verifyCapabilities
