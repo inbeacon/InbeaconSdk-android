@@ -1,3 +1,8 @@
+#### 2.5.2 (23-Oct-2018)
+- Documentation and examples
+- different foreground-service icon
+ 
+
 #### 2.5.1 (23-Oct-2018)
 - added foreground-service option to keep scanning in the background using Android 8
 
