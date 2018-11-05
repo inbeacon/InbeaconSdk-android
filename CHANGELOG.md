@@ -1,3 +1,8 @@
+#### 2.5.4 (05-Nov-2018)
+- sound issue for older android versions fixed
+- google cross-scripting warning issue solved
+ 
+
 #### 2.5.3 (23-Oct-2018)
 - Disable foreground-service for older pre-8 android versions
  
