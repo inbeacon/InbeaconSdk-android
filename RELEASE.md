@@ -1,3 +1,3 @@
-#### 2.5.6 (20-Mar-2019)
-- final issues
-  
+#### 2.5.7 (20-Mar-2019)
+- dagger issue solved
+ 
