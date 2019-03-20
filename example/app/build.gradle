@@ -20,24 +20,24 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
     // EXAMPLE EXAMPLE EXAMPLE EXAMPLE
     // how to cope with version conflicts
     // run  ./gradlew app:dependencies to see which versions are used
     // main build.gradle forces use of 3.6.0 using a resolutionStrategy (example only!)
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
 
 
     // always use latest version of the inbeacon SDK.
-    compile('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
+    implementation('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
     // You might want to pin to a specific version.
     //compile('com.inbeacon:android.sdk:2.5.1@aar'){ transitive = true }
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
