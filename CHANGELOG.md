@@ -1,3 +1,7 @@
+#### 2.5.6 (20-Mar-2019)
+- final issues
+  
+
 #### 2.5.5 (20-Mar-2019)
 - dependency version update
  
