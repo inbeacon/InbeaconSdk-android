@@ -2,7 +2,29 @@
 
 Before starting, lets take a look at some important considerations
 
+### Android 10 and up
+A new permission is needed for using location in the background using ACCESS\_BACKGROUND\_LOCATION. The SDK needs this permission to function correctly, together with ACCESS\_FINE\_LOCATION. 
 
+If you upgrade your app, make sure to ask for the additional ACCESS\_BACKGROUND\_LOCATION, like so:
+
+```java
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    //Permission check 
+    if (ActivityCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        // ask fine & background
+        ActivityCompat.requestPermissions(activity,
+                new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERMISSION_REQUEST_MY_CODE);
+    }
+    else {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // ask  background only
+            ActivityCompat.requestPermissions(activity,
+                    new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERMISSION_REQUEST_MY_CODE);
+        }
+    }
+}
+```
 
 ### Android 8 and up
 
@@ -94,6 +116,7 @@ For the SDK to work, the SDK includes the following (extra) permissions:
 * `RECEIVE_BOOT_COMPLETED`
 * `ACCESS_FINE_LOCATION`  (api 23 / android 6 only - for beacons and geofences)
 * `WAKE_LOCK` (api 27 / android 8 for background)
+* `ACCESS_BACKGROUND_LOCATION` (api 29 / android 10)
 
 How these permissions impact installation and use of the app differs per android version and per targeted API of the app.
 
@@ -107,36 +130,6 @@ When beacons with your ID are within range (approx 30 meters),  bluetooth scanni
 
 >The inbeacon SDK only wakes up for **_your beacons_** (beacon UUID’s defined in the region table of your account)  Other beacons have no influence on the inbeacon SDK.
 
-## Dex method footprint
 
-Because of the 65K method limit for android applications, large applications that add a lot of SDK’s might become too large containing more than 65K methods without use of MultiDex.
 
-The number of methods used by the inBeaconSDK is 793 methods (version 1.3.4)
-
-This is excluding the dexcount of the dependencies as they will probably already be used:
-
- *   com.google.code.gson:gson
- *   com.squareup.okhttp3:okhttp  (dependency of retrofit)
- *   com.google.android.gms:play-services-location
-
-## Memory footprint
-
-classes.jar: 50k
-
-```
-4.0K	contents//aapt
-  0B	contents//aidl
-  0B	contents//assets
-8.0K	contents//res/drawable-hdpi
-4.0K	contents//res/drawable-ldpi
- 68K	contents//res/drawable-mdpi
- 84K	contents//res/drawable-xhdpi
-104K	contents//res/drawable-xxhdpi
-188K	contents//res/drawable-xxxhdpi
-4.0K	contents//res/layout
-680K	contents//res/raw
-1.1M	contents//res
-1.2M	contents/
-```
-Difference between compiled apk with and without inBeaconSDK: 970k (including icon and sound resources)
 

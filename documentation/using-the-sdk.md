@@ -30,7 +30,7 @@ public class myApp extends Application {
 ```
 
 
-> For older devices with API level <=18 the initialization will be silently ignored. The inBeacon SDK is disabled for these API levels.
+> For old devices with API level <=18 the initialization will be silently ignored. The inBeacon SDK is disabled for these API levels.
 
 ### getInstance() 
 Retrieves the shared InbeaconManager singleton class 
@@ -117,7 +117,7 @@ VerifiedCapability.CAP_BLUETOOTH_LE_NOT_AVAILABLE
 ```
 
 ### askPermissions(Activity activity)
-Convenience method to ask FINE_LOCATION permissions for SDK 23, needed for the use of beacons and geofences
+Convenience method to ask FINE\_LOCATION permissions for SDK 23, and BACKGROUND\_LOCATION for SDK 29, needed for the use of beacons, geofences and hyperfences.
 (safe to call with SDK 22 and lower, in this case it does nothing)
 
 ```java
@@ -125,13 +125,6 @@ Convenience method to ask FINE_LOCATION permissions for SDK 23, needed for the u
 ```
 
 See example code if you want to roll your own.
-
-### refresh() - obsolete
-This starts all services and obtains new information from the server. 
-
-```java
-    void refresh();  // now obsolete. Done automatically
-```
 
 
 
@@ -358,7 +351,17 @@ intent Extras:
 * EVENT\_GEOFENCE\_EXTRADATA\_FENCEID - geofence id
 * EVENT\_GEOFENCE\_EXTRADATA\_INOUT - "i" or "o" - enter or exit
 
+### EVENT\_HYPERFENCE
 
+Fired when a device enters or leaves a hyperfence. Normally you don't need to filter this event. Special use cases only. 
+
+intent Extras:
+
+* EVENT\_HYPERFENCE\_EXTRADATA\_HYPERFENCEID - hyperfence id
+* EVENT\_HYPERFENCE\_EXTRADATA\_INOUT - "i" or "o" - enter or exit
+* EVENT\_HYPERFENCE\_EXTRADATA\_SUBTYPE - cluster model that triggered the event 
+* EVENT\_HYPERFENCE\_EXTRADATA\_LOCINFO - cluster information of trigger location
+* EVENT\_HYPERFENCE\_EXTRADATA\_STATS\_CONTEXT - statistical context
 
 
 

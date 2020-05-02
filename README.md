@@ -5,7 +5,7 @@ Read the [full documentation](documentation/README.md)
 ## Getting started
 Minimal implementation of the inBeacon SDK in an Android Studio project
 
-### Get the SDK from JCenter (recommended)
+#### Get the SDK from JCenter (recommended)
 Add JCenter to your build file's list of repositories:
 
 ```groovy
@@ -14,17 +14,25 @@ Add JCenter to your build file's list of repositories:
     }
 ```
 
-then include
+#### Add to your build.gradle
 
 ```groovy
+android {
+...
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+	}
+}	
 dependencies {
-	compile('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
+	implementation('com.inbeacon:android.sdk:2.+@aar'){ transitive = true }
+	...
 }
 ```
-to your gradle dependencies.
 
-### Create an Application class
-You need to create your own **application class** to enable working with the inBeacon SDK.
+
+#### Create an Application class or add to your existing Application class
+You need to have your own **application class** to enable working with the inBeacon SDK.
 > You can't initialize in an activity: the SDK will not work correctly in the background in this case
 
 In this class, initialize the inBeacon SDK from the onCreate of the application:
@@ -32,9 +40,8 @@ In this class, initialize the inBeacon SDK from the onCreate of the application:
 ```java
 import android.app.Application;
 import com.inbeacon.sdk.InbeaconManager;
-import java.util.HashMap;
 
-public class myApp extends Application {
+public class MainApp extends Application {
 
    @Override
 	public void onCreate() {
@@ -53,16 +60,16 @@ Now you have to make sure `MyApp` is used as the application class by adding it 
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.inbeacon.inbeaconsdktest" >
-    <application android:name=".MyApp">  <!-- add android:name -->
+    <application android:name=".MainApp">  <!-- add android:name -->
 		...
     </application>
 </manifest>
 ```
 
-## ask permission to use location 
-You also need to ask the user permission to use the device FINE_LOCATION. For convenience, the inBeacon SDK contains a method **askPermissions** to do this. 
+#### Ask permission to use location 
+You also need to ask the user permission to use the device FINE\_LOCATION and BACKGROUND\_LOCATION. 
 
-> for SDK 23 and up only, but works in any SDK
+For a quick start, the inBeacon SDK contains a method **askPermissions** to do this, but you probably want to handle the onboarding yourself.
 
 Include this statement in your main activity:
 

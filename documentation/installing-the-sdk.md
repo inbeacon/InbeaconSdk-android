@@ -23,17 +23,31 @@ to your gradle dependencies. See bintray for details: [https://bintray.com/inbea
 You can use a dynamic version (2.+) to get the latest 2.x version of the SDK (recommended) 
 >Don't forget transitive = true. Because we specify @aar, transitive no longer defaults to true
 
+Also, the okhttp library that is used needs java 1.8, so add this to the *android* section:
+
+```groovy
+android {
+	...
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+```
+
 #### Version conflicts
-The inbeacon SDK has dependencies on the following libraries and versions:
+The inbeacon SDK 2.6.0 has dependencies on the following libraries and versions:
 
 ```
-   compile 'com.android.support:support-v4:27.1.1'
-   compile 'org.altbeacon:android-beacon-library:2.13.1'      
-   compile 'com.google.code.gson:gson:2.8.2'
-   compile 'com.squareup.okhttp3:okhttp:3.10.0'
-   compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-   compile 'com.google.android.gms:play-services-location:11.8.0'
-   compile 'com.google.dagger:dagger:2.15'
+	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+	implementation 'androidx.appcompat:appcompat:1.1.0'
+	implementation 'androidx.work:work-runtime:2.3.4'
+	implementation 'org.altbeacon:android-beacon-library:2.17'    
+	implementation 'com.google.code.gson:gson:2.8.6'
+	implementation 'com.squareup.okhttp3:okhttp:3.14.0'
+	implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
+	implementation 'com.google.android.gms:play-services-location:17.0.0'
+	implementation 'com.google.dagger:dagger:2.27'
+	implementation 'com.google.dagger:dagger-android-support:2.27'
 
 ```
 
@@ -74,27 +88,8 @@ The SDK proguard rules are automatically merged into your project.
 
 If you don’t want to use the JCenter repository, you can download and include all files manually from the [repository](https://github.com/inbeacon/InbeaconSdk-android).
 
-To include the .aar in your android studio project, copy the aar file to the app/libs directory and include:
+To include the .aar in your android studio project, copy the aar file to the app/libs directory 
 
-```groovy
-repositories {
-   flatDir {
-       dirs 'libs'
-   }
-}
-
-compile 'com.android.support:support-v4:27.1.1'         
-compile 'org.altbeacon:android-beacon-library:2.13.1'  
-compile 'com.google.code.gson:gson:2.8.2'
-compile 'com.squareup.okhttp3:okhttp:3.10.0'
-compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-compile 'com.google.android.gms:play-services-location:11.8.0'
-compile(name:'android.sdk-release', ext:'aar')
-```
-
-In this case you need to specify some dependencies by hand.
-
-Now you are set to go. Try to compile and see that your app is still working. Now you need to add some code to start the inBeacon SDK.
 
 
 
