@@ -1,0 +1,12 @@
+echo "Copy this example to android SDK repo"
+
+
+REPODIR=~/proj/android/InbeaconSdk-android
+
+rm -Rf $REPODIR/example
+mkdir $REPODIR/example
+
+# git archive (copy) master to example dir
+git archive master | tar -x -C $REPODIR/example
+
+echo "done"
