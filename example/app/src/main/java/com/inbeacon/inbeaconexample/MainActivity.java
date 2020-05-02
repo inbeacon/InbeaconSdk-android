@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     InbeaconManagerInterface inbeaconManager;
     UserPropertyService userPropertyService;
     Context context;
+    public static final int  PERMISSION_REQUEST_MY_CODE = 2;
 
     /**
      * sample broadcastreceiver to show messages coming from the SDK
@@ -39,18 +42,19 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
-        Log.i(TAG, "Got action=" + action + " extras=" + intent.getExtras());
-        switch(action) {
-            case Constants.LocalBroadcasts.EVENT_USERINFO:
-                // event received when a userpropery changes.
-                // If you change a proerty in the backend (intelligence->users menu)
-                // and the device refreshes, you will get this event.
+            String action = intent.getAction();
+            Log.i(TAG, "Got action=" + action + " extras=" + intent.getExtras());
+            switch(action) {
+                case Constants.LocalBroadcasts.EVENT_USERINFO:
+                    // event received when a userpropery changes.
+                    // If you change a property in the backend (intelligence->users menu)
+                    // and the device refreshes, you will get this event.
 
-                // update the test property on screen
-                ((EditText)findViewById(R.id.editTest)).setText(userPropertyService.getPropertyString("test", ""));
-                break;
-        }
+                    // update the test property on screen
+                    ((EditText)findViewById(R.id.editTest)).setText(userPropertyService.getPropertyString("test", ""));
+                    break;
+                // case .. other events ..
+            }
         }
     };
 
@@ -75,8 +79,19 @@ public class MainActivity extends AppCompatActivity {
         // example permission check.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check 
-            if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 3771);
+            //Permission check 
+            if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // ask fine & background
+                ActivityCompat.requestPermissions(this,
+                        new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERMISSION_REQUEST_MY_CODE);
+            }
+            else {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // ask  background only
+                    ActivityCompat.requestPermissions(this,
+                            new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERMISSION_REQUEST_MY_CODE);
+                }
             }
         }
 
@@ -90,21 +105,11 @@ public class MainActivity extends AppCompatActivity {
         // Stay away from these events in normal use of the SDK.
         myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_PROXIMITY);    // A proximity towards a beacon changed
         myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GEOFENCE);     // A geofence range has been crossed
+        myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_HYPERFENCE);   // A hyperfence range has been crossed
         myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_LOCATION);     // A location (beacon group) has been entered
         myIntentFilter.addAction(Constants.LocalBroadcasts.EVENT_GPSFIX);       // A GPS lat/long position has been obtained
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, myIntentFilter);
-
-        // Force a server sync on the refresh-button.
-        // This will get new information from the backend, including changed userproperties, new regions to monitor etc.
-        // normally this happens automatically - you don't need to call refreshForced() in your app.
-        Button refreshForceBtn = (Button) findViewById(R.id.id_refresh_force);
-        refreshForceBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Log.w(TAG,"Request a resync");
-                inbeaconManager.refreshForced();
-            }
-        });
 
         //======================================================================
         // USER PROPERTIES EXAMPLE CODE
