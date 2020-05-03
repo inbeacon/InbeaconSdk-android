@@ -25,17 +25,13 @@ public class MainApplication extends Application {
 
         // Option 2. As an alternative, you might want to add some things before initialization.
         InbeaconManager.getInstance().setContext(this);
-
         // OPTIONAL change logging level
-        //InbeaconManager.getInstance().setLogLevel(Log.INFO);    // increase to INFO level
-
+        InbeaconManager.getInstance().setLogLevel(Log.ERROR);    // increase to INFO level
         // OPTIONAL use foreground-service for Android 8 (ignored for older versions)
-        //InbeaconManager.getInstance().setForegroundservice(true,"Scanning for beacons");
-
+        //      InbeaconManager.getInstance().setForegroundservice(true,"Scanning for beacons");
         // OPTIONAL set your own PPID (Publisher provided ID) for DFP retargeting
-        // If you do not do this, the SDK will use its own internally generated PPID
-        // InbeaconManager.getInstance().setPPID("your publisher provided ID for this device/app install");
-
+        //      If you do not do this, the SDK will use its own internally generated PPID
+        //      InbeaconManager.getInstance().setPPID("your publisher provided ID for this device/app install");
         InbeaconManager.getInstance().setCredentials("your-client-id", "your-secret-id");
         InbeaconManager.getInstance().start();  // and we're off
 
