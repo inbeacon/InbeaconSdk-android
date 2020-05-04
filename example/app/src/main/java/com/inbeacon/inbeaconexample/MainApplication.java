@@ -20,13 +20,13 @@ public class MainApplication extends Application {
 
         // initialize with your ClientID and SecretID. (see manage->account)
 
-        // Option 1. Just call initialize
+        // Option 1. Be lazy: just call initialize, which combines all steps into one easy method that does everything
         //InbeaconManager.initialize(this, "your-client-id", "your-secret-id");
 
-        // Option 2. As an alternative, you might want to add some things before initialization.
+        // Option 2. As an alternative, you might want to tweak some settings before initialization.
         InbeaconManager.getInstance().setContext(this);
         // OPTIONAL change logging level
-        InbeaconManager.getInstance().setLogLevel(Log.ERROR);    // increase to INFO level
+        InbeaconManager.getInstance().setLogLevel(Log.ERROR);    // increase to ERROR level to check for correct client-id / secret-id pair
         // OPTIONAL use foreground-service for Android 8 (ignored for older versions)
         //      InbeaconManager.getInstance().setForegroundservice(true,"Scanning for beacons");
         // OPTIONAL set your own PPID (Publisher provided ID) for DFP retargeting

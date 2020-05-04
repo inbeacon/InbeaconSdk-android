@@ -1,3 +1,3 @@
-#### 2.6.07 (03-May-2020)
-- example update
+#### 2.6.08 (04-May-2020)
+- minor fixes
  
