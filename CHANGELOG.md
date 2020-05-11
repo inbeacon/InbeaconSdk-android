@@ -1,3 +1,7 @@
+#### 2.6.09 (11-May-2020)
+- Improvements for lower SDK verions (N and down)
+ 
+
 #### 2.6.08 (04-May-2020)
 - minor fixes
  
