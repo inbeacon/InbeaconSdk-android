@@ -1,3 +1,3 @@
-#### 2.6.09 (11-May-2020)
-- Improvements for lower SDK verions (N and down)
+#### 2.6.10 (24-Jun-2020)
+- Battery saving optimizations. 
  
