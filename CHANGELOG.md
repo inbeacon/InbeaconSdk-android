@@ -1,3 +1,7 @@
+#### 2.6.11 (24-Jun-2020)
+- further battery optimize steps
+ 
+
 #### 2.6.10 (24-Jun-2020)
 - Battery saving optimizations. 
  
